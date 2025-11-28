@@ -1,0 +1,80 @@
+{
+  "events": [
+    {
+      "id": "1",
+      "title": "Tech Conference 2025",
+      "date": "2025-12-01",
+      "location": "Lagos, Nigeria",
+      "description": "A tech event for innovators and startups.",
+      "image": "/images/TechImg1.jpg"
+    },
+    {
+      "id": "2",
+      "title": "Music Fest",
+      "date": "2025-11-15",
+      "location": "Abuja, Nigeria",
+      "image": "/images/musicImage1.png",
+      "attendees": 120,
+      "description": "Live performances and entertainment."
+    },
+    {
+      "id": "3",
+      "title": "Tech Conference 2025",
+      "date": "2025-12-01",
+      "location": "Lagos, Nigeria",
+      "image": "/images/TechImg1.jpg",
+      "attendees": 45,
+      "description": "A tech event for innovators and startups."
+    },
+    {
+      "id": "4",
+      "title": "Music Fest",
+      "date": "2025-11-15",
+      "location": "Abuja, Nigeria",
+      "image": "/images/musicImage1.png",
+      "attendees": 120,
+      "description": "Live performances and entertainment."
+    },
+    {
+      "id": "5",
+      "title": "Tech Conference 2025",
+      "date": "2025-12-01",
+      "location": "Lagos, Nigeria",
+      "image": "/images/TechImg1.jpg",
+      "attendees": 45,
+      "description": "A tech event for innovators and startups."
+    },
+    {
+      "id": "6",
+      "title": "Music Fest",
+      "date": "2025-11-15",
+      "location": "Abuja, Nigeria",
+      "image": "/images/musicImage1.png",
+      "attendees": 120,
+      "description": "Live performances and entertainment."
+    },
+    {
+      "id": "1762516846632",
+      "title": "Kareoke Night",
+      "date": "2025-11-28",
+      "description": "From Fela to Burna, A night of rive and rave",
+      "image": "blob:http://localhost:5175/cf831c78-5a17-4e9d-b30a-6d97f35c4f31"
+    },
+    {
+      "id": "1762517362708",
+      "title": "Kareoke Night",
+      "date": "2025-12-04",
+      "location": "",
+      "description": "From The Legendary Fela to The Odowgu Burna, When the Old Rives meet the New and Thats when the magic happens",
+      "image": "blob:http://localhost:5175/eec8b8ae-e3f4-4150-b897-9ebe11ee6aa8"
+    },
+    {
+      "id": "1762517807396",
+      "title": "zCs",
+      "date": "2025-11-07",
+      "location": "dv",
+      "description": "dvdaegerhdah",
+      "image": "blob:http://localhost:5175/9234dce8-76e2-4eb3-b36d-6f012daa0b24"
+    }
+  ]
+}
