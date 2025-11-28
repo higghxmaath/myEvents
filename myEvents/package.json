@@ -1,6 +1,6 @@
 {
   "name": "vite",
-  "private": "true",
+  "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
@@ -15,9 +15,9 @@
     "@phosphor-icons/react": "^2.1.10",
     "framer-motion": "^12.23.24",
     "phosphor-react": "^1.4.1",
-     "vite": "^7.1.7",
-    "react": "^19.1.1",
-    "react-dom": "^19.1.1",
+    "vite": "^7.1.7",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-icons": "^5.5.0",
     "react-router-dom": "^7.9.5",
     "server": "^0.0.3"
@@ -28,8 +28,8 @@
     "@eslint/js": "^9.36.0",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.0",
-    "@types/react": "^19.1.16",
-    "@types/react-dom": "^19.1.9",
+    "@types/react": "^18.0.37",
+    "@types/react-dom": "^18.0.11",
     "@vitejs/plugin-react": "^5.1.0",
     "babel-jest": "^30.2.0",
     "eslint": "^9.36.0",
@@ -38,15 +38,14 @@
     "globals": "^16.4.0",
     "jest": "^30.2.0",
     "jsdom": "^27.1.0",
-    "json-server": "^1.0.0-beta.3",
-     },
+    "json-server": "^1.0.0-beta.3"
+  },
   "jest": {
     "setupFilesAfterEnv": [
       "<rootDir>/src/setupTests.js"
     ]
   },
   "engines": {
-  "node": "18.x"
-}
-
+    "node": "18.x"
+  }
 }
