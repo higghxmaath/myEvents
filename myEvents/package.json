@@ -15,6 +15,7 @@
     "@phosphor-icons/react": "^2.1.10",
     "framer-motion": "^12.23.24",
     "phosphor-react": "^1.4.1",
+     "vite": "^7.2.4",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-icons": "^5.5.0",
@@ -37,12 +38,16 @@
     "globals": "^16.4.0",
     "jest": "^30.2.0",
     "jsdom": "^27.1.0",
-    "json-server": "^1.0.0-beta.3",
-    "vite": "^7.1.7"
+    "json-server": "^1.0.0-beta.3"
+   
   },
   "jest": {
     "setupFilesAfterEnv": [
       "<rootDir>/src/setupTests.js"
     ]
-  }
+  },
+  "engines": {
+  "node": "18.x"
+}
+
 }
