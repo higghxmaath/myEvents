@@ -11,26 +11,28 @@ import path from "path";
 
 const app = express();
 
-// allow frontend origin (adjust if you deploy)
+
+
 app.use(cors({
-  origin: "https://my-events-yvnz.vercel.app",
+  origin: [
+    "https://my-events-yvnz.vercel.app",     
+        "http://localhost:4000"                  
+  ],
   credentials: true
 }));
 
-
 app.use(express.json());
 
-// expose uploads folder for local file serving
+
 app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
 
-// routes
 app.use("/api/auth", authRoutes);
 app.use("/api/events", eventRoutes);
 app.use("/api/rsvps", rsvpRoutes);
 
-// connect db and start
 connectDB();
 
 const PORT = process.env.PORT || 4000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-
+app.listen(PORT, "0.0.0.0", () =>
+  console.log(`Server running on port ${PORT}`)
+);
