@@ -29,10 +29,10 @@ function Signup() {
     setError("");
 
     try {
-      const res = await fetch("https://myevents-2.onrender.com/api/auth/signup", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
+const res = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/signup`, {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
           name: form.name,
           email: form.email,
           password: form.password
@@ -47,26 +47,18 @@ function Signup() {
         return;
       }
 
-      // Auto-login after signup 
+      //auto-login after signup 
       if (data.token && data.user) {
         localStorage.setItem("token", data.token);
         localStorage.setItem("user", JSON.stringify(data.user));
-
-        dispatch({
-          type: "LOGIN",
-          payload: { user: data.user, token: data.token }
-        });
-
-        if (loadUserRsvps)
-          await loadUserRsvps(data.user.id || data.user._id, data.token);
-
+        dispatch({ type: "LOGIN", payload: { user: data.user, token: data.token } });
+        if (loadUserRsvps) await loadUserRsvps(data.user.id || data.user._id, data.token);
         navigate("/events");
         return;
       }
 
       // Otherwise, go to login
       navigate("/login");
-
     } catch (err) {
       console.error("Signup error:", err);
       setError("Something went wrong");
