@@ -1,5 +1,4 @@
-const api = `${import.meta.env.VITE_API_BASE_URL}/api/events`
-
+const API_URL = `${import.meta.env.VITE_API_BASE_URL}/api/events`;
 
 export async function getEvents() {
   const res = await fetch(API_URL);

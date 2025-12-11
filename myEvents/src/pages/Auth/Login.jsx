@@ -28,7 +28,7 @@ function Login() {
     setError("");
 
     try {
-      const res = await fetch("http://localhost:4000/api/auth/login", {
+      const res = await fetch("https://myevents-2.onrender.com/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form)
@@ -57,7 +57,7 @@ function Login() {
         await loadUserRsvps(data.user.id || data.user._id, data.token);
       }
 
-      navigate("/events"); // or '/'
+      navigate("/events");
     } catch (err) {
       console.error("Login error:", err);
       setError("Something went wrong");

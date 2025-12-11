@@ -15,7 +15,7 @@ function EventDetails() {
     async function fetchEvent() {
       setLoading(true);
       try {
-        const res = await fetch(`http://localhost:4000/api/events/${id}`);
+        const res = await fetch(`https://myevents-2.onrender.com/api/events/${id}`);
         if (!res.ok) throw new Error("Event not found");
         const data = await res.json();
         setEvent(data);
@@ -37,13 +37,18 @@ function EventDetails() {
     </div>
   );
 
-  const isRSVPed = Array.isArray(event.attendees) && event.attendees.some(a => String(a.userId) === String(user?.id || user?._id));
+  const isRSVPed =
+    Array.isArray(event.attendees) &&
+    event.attendees.some(a => String(a.userId) === String(user?.id || user?._id));
 
-  // handleRSVP should call /api/rsvps endpoints; your context rsvp/cancelRsvp helpers will handle details if wired
   return (
     <div className="app-container">
       <div className="event-details-card">
-        <img src={event.image || "/placeholder.jpg"} alt={event.title} className="event-details-image" />
+        <img
+          src={event.image || "/placeholder.jpg"}
+          alt={event.title}
+          className="event-details-image"
+        />
         <div className="event-details-content">
           <h2>{event.title}</h2>
           <p className="event-date">📅 {event.date}</p>

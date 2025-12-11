@@ -49,7 +49,7 @@ function CreateEvent() {
       formData.append("date", event.date);
       if (imageFile) formData.append("image", imageFile);
 
-      const res = await fetch("http://localhost:4000/api/events", {
+      const res = await fetch("https://myevents-2.onrender.com/api/events", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`
@@ -57,7 +57,6 @@ function CreateEvent() {
         body: formData
       });
 
-      // safe parse: if server returns HTML (error page), avoid crashing
       const contentType = res.headers.get("content-type") || "";
       const data = contentType.includes("application/json") ? await res.json() : null;
 
@@ -123,7 +122,11 @@ function CreateEvent() {
 
         {error && <p className="auth-error">{error}</p>}
 
-        <button type="submit" className="submit-btn" style={{ display: "block", margin: "16px auto 0", background: "var(--color-accent)" }}>
+        <button
+          type="submit"
+          className="submit-btn"
+          style={{ display: "block", margin: "16px auto 0", background: "var(--color-accent)" }}
+        >
           Create Event
         </button>
       </form>

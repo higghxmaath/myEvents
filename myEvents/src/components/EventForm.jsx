@@ -2,6 +2,8 @@ import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useEventContext } from "../context/EventContext";
 
+const API_BASE = "https://myevents-2.onrender.com/api/events";
+
 function EventForm({ existingEvent }) {
   const navigate = useNavigate();
   const { dispatch } = useEventContext();
@@ -16,7 +18,7 @@ function EventForm({ existingEvent }) {
 
   const fileRef = useRef();
 
-  // Handle image preview
+  // Preview image when selected
   useEffect(() => {
     if (!image) return;
     const url = URL.createObjectURL(image);
@@ -24,7 +26,7 @@ function EventForm({ existingEvent }) {
     return () => URL.revokeObjectURL(url);
   }, [image]);
 
-  // Simple validation rules
+  // Basic validation
   const validate = () => {
     const newErrors = {};
     if (!title.trim()) newErrors.title = "Title is required.";
@@ -34,44 +36,52 @@ function EventForm({ existingEvent }) {
     return newErrors;
   };
 
-  // Form submit handler
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     const validationErrors = validate();
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       return;
     }
 
-    const newEvent = {
-      id: existingEvent?.id || Date.now(),
-      title,
-      date,
-      location,
-      description,
-      image: preview || existingEvent?.image || "https://via.placeholder.com/300x200?text=Event+Image",
-    };
-
     try {
       const method = existingEvent ? "PUT" : "POST";
-      const url = existingEvent
-        ? `http://localhost:5000/events/${existingEvent.id}`
-        : "http://localhost:5000/events";
+      const url = existingEvent ? `${API_BASE}/${existingEvent._id || existingEvent.id}` : API_BASE;
+
+      const formData = new FormData();
+      formData.append("title", title);
+      formData.append("date", date);
+      formData.append("location", location);
+      formData.append("description", description);
+
+      if (image) {
+        formData.append("image", image);
+      }
+
+      const token = localStorage.getItem("token");
 
       const res = await fetch(url, {
         method,
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newEvent),
+        headers: {
+          Authorization: `Bearer ${token}`
+        },
+        body: formData
       });
 
-      if (!res.ok) throw new Error("Failed to save event");
+      const data = await res.json();
+
+      if (!res.ok) {
+        console.error("Backend error:", data);
+        alert(data.message || "Failed to save event");
+        return;
+      }
 
       dispatch({
         type: existingEvent ? "UPDATE_EVENT" : "ADD_EVENT",
-        payload: newEvent,
+        payload: data
       });
 
-      // Redirect to Events list after success
       navigate("/events");
     } catch (error) {
       console.error("Error saving event:", error);
@@ -130,6 +140,7 @@ function EventForm({ existingEvent }) {
           ref={fileRef}
           onChange={(e) => setImage(e.target.files[0])}
         />
+
         {preview && (
           <img
             src={preview}

@@ -14,8 +14,8 @@ function EditEvent() {
     if (eventToEdit) {
       setEventData(eventToEdit);
     } else {
-      // If event not found in state, try fetching it directly
-      fetch(`http://localhost:5000/events/${id}`)
+      // If event not found in state, fetch from backend
+      fetch(`https://myevents-2.onrender.com/api/events/${id}`)
         .then(res => res.json())
         .then(data => setEventData(data))
         .catch(() => {

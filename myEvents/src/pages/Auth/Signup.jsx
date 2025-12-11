@@ -29,7 +29,7 @@ function Signup() {
     setError("");
 
     try {
-      const res = await fetch("http://localhost:4000/api/auth/signup", {
+      const res = await fetch("https://myevents-2.onrender.com/api/auth/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -47,18 +47,26 @@ function Signup() {
         return;
       }
 
-      //auto-login after signup 
+      // Auto-login after signup 
       if (data.token && data.user) {
         localStorage.setItem("token", data.token);
         localStorage.setItem("user", JSON.stringify(data.user));
-        dispatch({ type: "LOGIN", payload: { user: data.user, token: data.token } });
-        if (loadUserRsvps) await loadUserRsvps(data.user.id || data.user._id, data.token);
+
+        dispatch({
+          type: "LOGIN",
+          payload: { user: data.user, token: data.token }
+        });
+
+        if (loadUserRsvps)
+          await loadUserRsvps(data.user.id || data.user._id, data.token);
+
         navigate("/events");
         return;
       }
 
       // Otherwise, go to login
       navigate("/login");
+
     } catch (err) {
       console.error("Signup error:", err);
       setError("Something went wrong");
