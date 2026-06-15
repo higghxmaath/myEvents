@@ -2,7 +2,9 @@ import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useEventContext } from "../context/EventContext";
 
-const API_BASE = "https://myevents-2.onrender.com/api/events";
+import { API_URL } from "../config/api";
+
+const API_BASE = `${API_URL}/api/events`;
 
 function EventForm({ existingEvent }) {
   const navigate = useNavigate();

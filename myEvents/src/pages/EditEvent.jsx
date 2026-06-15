@@ -2,6 +2,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useEventContext } from "../context/EventContext";
 import EventForm from "../components/EventForm";
+import { API_URL } from "../config/api";
 
 function EditEvent() {
   const { id } = useParams();
@@ -10,12 +11,14 @@ function EditEvent() {
   const [eventData, setEventData] = useState(null);
 
   useEffect(() => {
-    const eventToEdit = state.events.find(e => String(e.id) === String(id));
+    const eventToEdit = state.events.find(
+      (e) => String(e._id || e.id) === String(id)
+    );
     if (eventToEdit) {
       setEventData(eventToEdit);
     } else {
       // If event not found in state, fetch from backend
-      fetch(`https://myevents-2.onrender.com/api/events/${id}`)
+      fetch(`${API_URL}/api/events/${id}`)
         .then(res => res.json())
         .then(data => setEventData(data))
         .catch(() => {

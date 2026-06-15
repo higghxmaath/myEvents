@@ -1,22 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEventContext } from "../context/EventContext";
 import { Link } from "react-router-dom";
 
 function HighlightsSection() {
-  const [events, setEvents] = useState([]);
+  const { state } = useEventContext();
+  const { events = [] } = state;
 
-  useEffect(() => {
-    fetch("http://localhost:4000/api/events")
-      .then(res => res.json())
-      .then(data => {
-        const sorted = data
-          .filter(e => e.date)
-          .sort((a, b) => new Date(a.date) - new Date(b.date))
-          .slice(0, 3);
-
-        setEvents(sorted);
-      })
-      .catch(err => console.error("Error fetching events:", err));
-  }, []);
+  const upcoming = [...events]
+    .filter((e) => e.date)
+    .sort((a, b) => new Date(a.date) - new Date(b.date))
+    .slice(0, 3);
 
   return (
     <section className="highlights-section">
@@ -28,10 +20,10 @@ function HighlightsSection() {
       </div>
 
       <div className="highlight-grid">
-        {events.length > 0 ? (
-          events.map(event => (
-            <div 
-              key={event._id || event.id} 
+        {upcoming.length > 0 ? (
+          upcoming.map((event) => (
+            <div
+              key={event._id || event.id}
               className="highlight-card"
             >
               <img

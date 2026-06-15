@@ -29,7 +29,7 @@ function HeroSection() {
 
       <div className="hero-images">
         <motion.img
-          src="/images/coperaEvent.jpg"
+          src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&h=300&fit=crop"
           alt="Corporate Event"
           className="hero-img"
           initial={{ opacity: 0, y: 30 }}
@@ -37,7 +37,7 @@ function HeroSection() {
           transition={{ duration: 1 }}
         />
         <motion.img
-          src="/images/partyevents.jpeg"
+          src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=400&h=300&fit=crop"
           alt="Party Event"
           className="hero-img"
           initial={{ opacity: 0, y: -30 }}

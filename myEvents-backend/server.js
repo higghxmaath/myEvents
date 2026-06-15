@@ -15,8 +15,8 @@ const app = express();
 
 app.use(cors({
   origin: [
-    "https://my-events-yvnz.vercel.app",     
-        "http://localhost:4000"                  
+    "https://my-events-yvnz.vercel.app",
+    "http://localhost:5173",
   ],
   credentials: true
 }));
@@ -29,6 +29,17 @@ app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
 app.use("/api/auth", authRoutes);
 app.use("/api/events", eventRoutes);
 app.use("/api/rsvps", rsvpRoutes);
+
+app.use((req, res) => {
+  res.status(404).json({ message: "Route not found" });
+});
+
+app.use((err, req, res, next) => {
+  console.error("Unhandled error:", err);
+  res.status(err.status || 500).json({
+    message: err.message || "Internal server error",
+  });
+});
 
 connectDB();
 

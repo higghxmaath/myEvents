@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useEventContext } from "../context/EventContext";
+import { API_URL } from "../config/api";
 
 function CreateEvent() {
   const navigate = useNavigate();
@@ -49,7 +50,7 @@ function CreateEvent() {
       formData.append("date", event.date);
       if (imageFile) formData.append("image", imageFile);
 
-      const res = await fetch("https://myevents-2.onrender.com/api/events", {
+      const res = await fetch(`${API_URL}/api/events`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`

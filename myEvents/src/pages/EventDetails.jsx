@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useEventContext } from "../context/EventContext";
+import { API_URL } from "../config/api";
 
 function EventDetails() {
   const { id } = useParams();
@@ -15,7 +16,7 @@ function EventDetails() {
     async function fetchEvent() {
       setLoading(true);
       try {
-        const res = await fetch(`https://myevents-2.onrender.com/api/events/${id}`);
+        const res = await fetch(`${API_URL}/api/events/${id}`);
         if (!res.ok) throw new Error("Event not found");
         const data = await res.json();
         setEvent(data);
