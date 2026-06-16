@@ -11,18 +11,27 @@ import path from "path";
 
 const app = express();
 
-
+const allowedOrigins = [
+  "https://my-events-yvnz.vercel.app",
+  "http://localhost:5173",
+  "http://127.0.0.1:5173",
+];
 
 app.use(cors({
-  origin: [
-    "https://my-events-yvnz.vercel.app",
-    "http://localhost:5173",
-  ],
-  credentials: true
+  origin(origin, callback) {
+    if (!origin || allowedOrigins.includes(origin) || /\.vercel\.app$/.test(origin)) {
+      return callback(null, true);
+    }
+    return callback(null, false);
+  },
+  credentials: true,
 }));
 
 app.use(express.json());
 
+app.get("/api/health", (req, res) => {
+  res.json({ status: "ok" });
+});
 
 app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
 
@@ -41,9 +50,16 @@ app.use((err, req, res, next) => {
   });
 });
 
-connectDB();
-
 const PORT = process.env.PORT || 4000;
-app.listen(PORT, "0.0.0.0", () =>
-  console.log(`Server running on port ${PORT}`)
-);
+
+const startServer = async () => {
+  await connectDB();
+  app.listen(PORT, "0.0.0.0", () =>
+    console.log(`Server running on port ${PORT}`)
+  );
+};
+
+startServer().catch((err) => {
+  console.error("Failed to start server:", err);
+  process.exit(1);
+});

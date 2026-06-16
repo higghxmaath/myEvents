@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Auth.css";
 import { useEventContext } from "../../context/EventContext";
+import { API_URL } from "../../config/api";
 
 function Signup() {
   const navigate = useNavigate();
@@ -29,17 +30,20 @@ function Signup() {
     setError("");
 
     try {
-const res = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/signup`, {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({
+      const res = await fetch(`${API_URL}/api/auth/signup`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
           name: form.name,
           email: form.email,
-          password: form.password
-        })
+          password: form.password,
+        }),
       });
 
-      const data = await res.json();
+      const contentType = res.headers.get("content-type") || "";
+      const data = contentType.includes("application/json")
+        ? await res.json()
+        : { message: "Unexpected server response" };
 
       if (!res.ok) {
         setError(data.message || "Signup failed");
@@ -61,7 +65,7 @@ const res = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/signup`, {
       navigate("/login");
     } catch (err) {
       console.error("Signup error:", err);
-      setError("Something went wrong");
+      setError("Cannot reach server. Please try again in a moment.");
     } finally {
       setLoading(false);
     }

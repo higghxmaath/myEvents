@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Auth.css";
 import { useEventContext } from "../../context/EventContext";
+import { API_URL } from "../../config/api";
 
 function Login() {
   const navigate = useNavigate();
@@ -28,13 +29,16 @@ function Login() {
     setError("");
 
     try {
-     const res = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/login`, {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ email: form.email, password: form.password })
-});
+      const res = await fetch(`${API_URL}/api/auth/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: form.email, password: form.password }),
+      });
 
-      const data = await res.json();
+      const contentType = res.headers.get("content-type") || "";
+      const data = contentType.includes("application/json")
+        ? await res.json()
+        : { message: "Unexpected server response" };
 
       if (!res.ok) {
         setError(data.message || "Login failed");
@@ -60,7 +64,7 @@ function Login() {
       navigate("/events");
     } catch (err) {
       console.error("Login error:", err);
-      setError("Something went wrong");
+      setError("Cannot reach server. Please try again in a moment.");
     }
 
     setLoading(false);
